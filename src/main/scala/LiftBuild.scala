@@ -74,8 +74,8 @@ sealed trait LiftDefaults {
   def crossMapped(mappings: (String, String)*): CrossVersion =
     CrossVersion.binaryMapped(Map(mappings: _*) orElse { case v => v })
 
-  def defaultOrMapped(default: String, alternatives: (String, String)*): String => String =
-    Map(alternatives: _*) orElse { case _ => default }
+  def defaultOrMapped(default1: String, alternatives: (String, String)*): String => String =
+    Map(alternatives: _*).orElse[String, String]({ case _ => default1 })
 
   // Logo printer
   def printLogo(name: String, version: String, scalaVersion: String) {
